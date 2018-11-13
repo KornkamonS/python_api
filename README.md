@@ -17,4 +17,8 @@
 ### DAY 3 : MongoDB ,flask_auth , SqlAlchemy
 * use flask_auth to do the authenticate
 * try to change SqlAlchemy to MongoDB from the [example](https://blog.miguelgrinberg.com/post/restful-authentication-with-flask)
-* lib to wrapped pymongo for model [link](https://github.com/joshmarshall/mogo)
+* library to wrapped [pymongo](https://github.com/joshmarshall/mogo) for model 
+
+### DAY 4 : Test api in docker 
+* Thank! [container tutorials](http://containertutorials.com/docker-compose/flask-mongo-compose.html#build-and-run-the-service-using-docker-compose)
+* can use flask_authen but it use token in username (basic authen).
