@@ -22,3 +22,8 @@
 ### DAY 4 : Test api in docker 
 * Thank! [container tutorials](http://containertutorials.com/docker-compose/flask-mongo-compose.html#build-and-run-the-service-using-docker-compose)
 * can use flask_authen but it use token in username (basic authen).
+
+### DAY 5 : API with JWT authentication
+* use JWT in API 
+* use JSONschema to validation data
+* create logOut 
