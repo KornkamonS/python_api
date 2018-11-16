@@ -1,10 +1,14 @@
+
+import datetime
+
 from flask_jwt_extended import (create_access_token, create_refresh_token,
                                 get_jwt_identity, get_raw_jwt,
                                 jwt_refresh_token_required, jwt_required)
 from flask_restful import Resource, request, url_for
-from User import *  
-import datetime  
-from token_revoke import *
+
+from models.TokenRevoke import *
+from models.User import * 
+
 
 def user_response(data):
     access_token = create_access_token(identity = data)
@@ -40,13 +44,18 @@ class Users_api(Resource):
     def get(self,id=None):
         if id==None:
             return list(User.user_database.find({},{ "password": 0 })),200
-        else:     
-            return  list(User.user_database.find({"_id":id},{ "password": 0 })),200
+        else:   
+            user =User.user_database.find_one({"_id":id},{ "password": 0 })
+            if user is None:
+                return {'message':'user not found'},404  
+            return  user,200
     
     @jwt_required  
     def delete(self,id):
         try:
             count = User.delete(id)
+            if count == 0 :
+                return {'message':'user not found'} , 404
             return  {'message':'deleted successful'} , 200
         except: 
             return  {'message':'deleted fail'} , 500

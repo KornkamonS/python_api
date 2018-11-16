@@ -1,0 +1,10 @@
+flask
+flask-jwt-extended
+flask-login
+flask-restful
+pymongo
+jsonschema  
+passlib
+librosa
+numpy 
+python-levenshtein

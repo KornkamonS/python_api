@@ -1,3 +1,4 @@
+import configparser
 import uuid
 
 from jsonschema import validate
@@ -5,14 +6,14 @@ from jsonschema.exceptions import SchemaError, ValidationError
 from passlib.apps import custom_app_context as pwd_context
 from pymongo import MongoClient
 
-myclient=MongoClient("mongodb://localhost:27017/")
+config = configparser.ConfigParser()
+config.read('config.ini') 
 
-##for docker
-# myclient = MongoClient(
-#     os.environ['DB_PORT_27017_TCP_ADDR'],
-#     27017)
-mydb = myclient["python_test_database"]
-users_db = mydb["users"] 
+myclient=MongoClient(config['DATABASE']['DATABASE_URI'],
+                    int(config['DATABASE']['PORT']))
+ 
+database = myclient[config['DATABASE']['DATABASE_NAME']]
+users_db = database[config['DATABASE']['TABLE_USER']] 
   
 class User(object):
     user_schema = {

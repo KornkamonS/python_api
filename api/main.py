@@ -1,22 +1,25 @@
-from flask import Blueprint, Flask, jsonify
+import configparser
+import datetime
 
-import models
-import user_controller
+from flask import Blueprint, Flask, jsonify
 from flask_jwt_extended import JWTManager
 from flask_login import LoginManager
 from flask_restful import Api
-from User import *
-import datetime
-from token_revoke import *
-app = Flask(__name__)
 
+import controllers.dp_controller as deepspeech
+import controllers.user_controller as user
+from models.TokenRevoke import *
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+app = Flask(__name__)
 api_bp = Blueprint('api', __name__)
 api = Api(api_bp)
 
-# app.config['JWT_SECRET_KEY'] = os.environ.get('SECRET')
+app.config['JWT_SECRET_KEY'] = config['DEFAULT']['JWT_SECRET_KEY']
+app.config['SECRET_KEY'] = config['DEFAULT']['SECRET_KEY']
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(days=1)
-app.config['JWT_SECRET_KEY'] = 'jwt-secret-string'
-app.config['SECRET_KEY'] = 'the quick brown fox jumps over the lazy dog'
 app.config['JWT_BLACKLIST_ENABLED'] = True
 app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 
@@ -29,18 +32,22 @@ def check_if_token_in_blacklist(decrypted_token):
     jti = decrypted_token['jti']
     return TokenRevoke.is_jti_blacklisted(jti)
 
-@app.route('/')
+@app.route('/') 
 def index():
     return jsonify({'message': 'Hello, World! by TUNA'})
 
-api.add_resource(user_controller.Users_api,'/users','/users/<id>')
-api.add_resource(user_controller.UserLogin, '/login')  
-api.add_resource(user_controller.UserLogoutAccess, '/logout')
+api.add_resource(user.Users_api,'/users','/users/<id>')
+api.add_resource(user.UserLogin, '/login')  
+api.add_resource(user.UserLogoutAccess, '/logout')
 
-api.add_resource(user_controller.UserLogoutRefresh, '/logout/refresh')
-api.add_resource(user_controller.TokenRefresh, '/token/refresh') 
-api.add_resource(user_controller.SecretResource, '/secret')
+api.add_resource(user.UserLogoutRefresh, '/logout/refresh')
+api.add_resource(user.TokenRefresh, '/token/refresh') 
+api.add_resource(user.SecretResource, '/secret')
+
+api.add_resource(deepspeech.deepspeech_api,'/audio')
+
+
 app.register_blueprint(api_bp)
 
 if __name__ == '__main__': 
-    app.run(debug=True)
+    app.run(host='0.0.0.0',port=80,debug=True)

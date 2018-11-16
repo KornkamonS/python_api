@@ -27,3 +27,6 @@
 * use JWT in API 
 * use JSONschema to validation data
 * create logOut 
+
+### DAY 6 : Third party authentication
+* use login in third party and then get token to verify if true create account to keep data or sent jwt

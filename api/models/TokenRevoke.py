@@ -1,13 +1,17 @@
+import configparser
+import os
+
 from pymongo import MongoClient
 
-myclient=MongoClient("mongodb://localhost:27017/")
+config = configparser.ConfigParser()
+config.read('config.ini')   
 
-##for docker
-# myclient = MongoClient(
-#     os.environ['DB_PORT_27017_TCP_ADDR'],
-#     27017)
-mydb = myclient["python_test_database"]
-token_revoke_db = mydb["token_revoke"] 
+myclient=MongoClient(config['DATABASE']['DATABASE_URI'],
+                    int(config['DATABASE']['PORT']))
+ 
+database = myclient[config['DATABASE']['DATABASE_NAME']]
+token_revoke_db = database[config['DATABASE']['TABLE_TOKEN']] 
+ 
   
 class TokenRevoke(object):
     token_revoke = token_revoke_db
