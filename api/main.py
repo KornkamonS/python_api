@@ -6,7 +6,6 @@ from flask_jwt_extended import JWTManager
 from flask_login import LoginManager
 from flask_restful import Api
 
-import controllers.dp_controller as deepspeech
 import controllers.user_controller as user
 from models.TokenRevoke import *
 
@@ -42,10 +41,7 @@ api.add_resource(user.UserLogoutAccess, '/logout')
 
 api.add_resource(user.UserLogoutRefresh, '/logout/refresh')
 api.add_resource(user.TokenRefresh, '/token/refresh') 
-api.add_resource(user.SecretResource, '/secret')
-
-api.add_resource(deepspeech.deepspeech_api,'/audio')
-
+api.add_resource(user.SecretResource, '/secret')  
 
 app.register_blueprint(api_bp)
 

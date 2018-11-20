@@ -131,6 +131,9 @@ def get_auth_token():
 def get_resource():
     return jsonify({'data': 'Hello, %s!' % g.user['username']})
 
+@app.route('/api/getfile') 
+def get_resource():
+    return jsonify({'data': 'Hello, %s!' % g.user['username']})
 
 if __name__ == '__main__': 
     app.run(host='0.0.0.0',port=80,debug=True)
