@@ -32,3 +32,10 @@
 * use login in third party and then get token to verify if true create account to keep data or sent jwt
 
 ### DAY 7 : Sending file with url 
+
+## DAY 8: Flask restplus & mongo
+* can generate swagger document when start the server
+* edit configuration server
+* save file with mongo and gridfs
+>* gridfs -> use for save file > 16 MB 
+>* Binary -> use for save file <= 16 MB 

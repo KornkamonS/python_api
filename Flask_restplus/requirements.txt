@@ -1,0 +1,11 @@
+flask
+flask-jwt-extended 
+flask-restplus
+pymongo
+jsonschema  
+passlib
+librosa
+numpy 
+python-levenshtein 
+pyopenssl
+flask_cors
