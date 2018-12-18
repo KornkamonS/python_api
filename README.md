@@ -33,7 +33,7 @@
 
 ### DAY 7 : Sending file with url 
 
-## DAY 8: Flask restplus & mongo
+### DAY 8: Flask restplus & mongo
 * can generate swagger document when start the server
 * edit configuration server
 * save file with mongo and gridfs
